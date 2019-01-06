@@ -11,7 +11,10 @@
       <label class="task-list__item"
              v-for="(todo, index) in todos" :key="index"
              :class="{ 'task-list__item--checked': todo.done }">
-        <input type="checkbox" v-model="todo.done"><button>EDIT</button>{{ todo.text }}
+        <input type="checkbox" v-model="todo.done">
+        <input type="checkbox" v-model="todo.editing">
+        <input type="text" v-if="todo.editing" v-model="todo.text" @keyup.enter="todo.editing = !todo.editing">
+        <span v-else>{{ todo.text }}</span>
       </label>
     </div>
   </div>
@@ -26,10 +29,10 @@ export default {
   data () {
     return {
       todos: [
-        { text: 'vue-router', done: false },
-        { text: 'vuex', done: false },
-        { text: 'vue-loader', done: false },
-        { text: 'awesome-vue', done: true }
+        { text: 'vue-router', done: false, editing: false },
+        { text: 'vuex', done: false, editing: false },
+        { text: 'vue-loader', done: false, editing: false },
+        { text: 'awesome-vue', done: true, editing: false }
       ],
       newTodo: ''
     }
